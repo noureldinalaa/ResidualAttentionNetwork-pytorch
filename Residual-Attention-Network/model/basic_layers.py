@@ -8,19 +8,19 @@ import numpy as np
 class ResidualBlock(nn.Module):
     def __init__(self, input_channels, output_channels, stride=1):
         super(ResidualBlock, self).__init__()
-        self.input_channels = input_channels
-        self.output_channels = output_channels
-        self.stride = stride
+        self.input_channels = input_channels  # 32
+        self.output_channels = output_channels # 128
+        self.stride = stride #1
         self.bn1 = nn.BatchNorm2d(input_channels)
         self.relu = nn.ReLU(inplace=True)
-        self.conv1 = nn.Conv2d(input_channels, output_channels/4, 1, 1, bias = False)
-        self.bn2 = nn.BatchNorm2d(output_channels/4)
+        self.conv1 = nn.Conv2d(input_channels, int(output_channels/4), 1, 1, bias = False) #input= 32 and output = 32
+        self.bn2 = nn.BatchNorm2d(int(output_channels/4))
         self.relu = nn.ReLU(inplace=True)
-        self.conv2 = nn.Conv2d(output_channels/4, output_channels/4, 3, stride, padding = 1, bias = False)
-        self.bn3 = nn.BatchNorm2d(output_channels/4)
+        self.conv2 = nn.Conv2d(int(output_channels/4), int(output_channels/4), 3, stride, padding = 1, bias = False)
+        self.bn3 = nn.BatchNorm2d(int(output_channels/4))
         self.relu = nn.ReLU(inplace=True)
-        self.conv3 = nn.Conv2d(output_channels/4, output_channels, 1, 1, bias = False)
-        self.conv4 = nn.Conv2d(input_channels, output_channels , 1, stride, bias = False)
+        self.conv3 = nn.Conv2d(int(output_channels/4), output_channels, 1, 1, bias = False) #in = 32 , out = 128
+        self.conv4 = nn.Conv2d(input_channels, output_channels , 1, stride, bias = False) # in = 32 ,out = 128
         
     def forward(self, x):
         residual = x

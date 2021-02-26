@@ -18,7 +18,7 @@ model_file = 'model_92_sgd.pkl'
 
 
 # for test
-def test(model, test_loader, btrain=False, model_file='model_92.pkl'):
+def test(model, test_loader, btrain=False, model_file='model_92_sgd.pkl'):
     # Test
     if not btrain:
         model.load_state_dict(torch.load(model_file))
@@ -89,7 +89,7 @@ print(model)
 lr = 0.1  # 0.1
 criterion = nn.CrossEntropyLoss()
 optimizer = optim.SGD(model.parameters(), lr=lr, momentum=0.9, nesterov=True, weight_decay=0.0001)
-is_train = True
+is_train = False
 is_pretrain = False
 acc_best = 0
 total_epoch = 300
